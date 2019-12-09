@@ -18,4 +18,11 @@ router
     PropertyController.getAll,
   );
 
+router
+  .route('/property/:propertyId')
+  .get(
+    checkTokenValid,
+    PropertyController.getSingle,
+  );
+
 module.exports = router;

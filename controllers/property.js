@@ -85,6 +85,51 @@ class Property {
       return next(err);
     }
   }
+
+  /**
+   * @param { object } req - request body
+   * @param { object } res - api response
+   * @param { function } next - next middleware function
+   */
+  static async getSingle(req, res, next) {
+    try {
+      const { propertyId } = req.params;
+      const userId = decode(req)[0].id;
+
+      const findUser = await users.findByPk(userId);
+
+      if (!findUser) {
+        const err = new Error();
+        err.message = `user with ID ${userId} not found`;
+        err.statusCode = 404;
+        return next(err);
+      }
+
+      const userProperty = await properties.findOne({
+        where: {
+          id: propertyId,
+          user_id: userId,
+        },
+      });
+
+      if (!userProperty) {
+        const err = new Error();
+        err.message = `property with ID ${propertyId} not found`;
+        err.statusCode = 404;
+        return next(err);
+      }
+
+      return res.status(200).json({
+        message: 'single property',
+        statusCode: 200,
+        data: {
+          property: userProperty,
+        },
+      });
+    } catch (err) {
+      return next(err);
+    }
+  }
 }
 
 module.exports = Property;
