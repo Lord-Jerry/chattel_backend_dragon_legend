@@ -130,6 +130,53 @@ class Property {
       return next(err);
     }
   }
+
+  /**
+   * @param { object } req - request body
+   * @param { object } res - api response
+   * @param { function } next - next middleware function
+   */
+  static async update(req, res, next) {
+    try {
+      const {
+        address, property_type, num_apartment, num_bathroom, rentage_amount,
+      } = req.body;
+
+      const { propertyId } = req.params;
+      const userId = decode(req)[0].id;
+      const userProperty = await properties.findOne({
+        where: {
+          id: propertyId,
+          user_id: userId,
+        },
+      });
+
+      if (!userProperty) {
+        const err = new Error();
+        err.message = `property with ID ${propertyId} not found`;
+        err.statusCode = 404;
+        return next(err);
+      }
+
+      const updatedProperty = await userProperty.update({
+        address,
+        property_type,
+        num_apartment,
+        num_bathroom,
+        rentage_amount,
+      });
+
+      return res.status(200).json({
+        message: 'Property updated successfully',
+        statusCode: 200,
+        data: {
+          property: updatedProperty,
+        },
+      });
+    } catch (err) {
+      return next(err);
+    }
+  }
 }
 
 module.exports = Property;

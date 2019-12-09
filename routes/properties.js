@@ -25,4 +25,12 @@ router
     PropertyController.getSingle,
   );
 
+router
+  .route('/update-property/:propertyId')
+  .put(
+    checkTokenValid,
+    create,
+    PropertyController.update,
+  );
+
 module.exports = router;
