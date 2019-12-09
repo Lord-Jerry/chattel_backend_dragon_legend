@@ -6,11 +6,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       autoIncrement: true,
     },
-    firstname: {
+    fname: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    lastname: {
+    lname: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true,
     },
-    phone_number: {
+    mobile: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    account_type: {
+    type: {
       type: DataTypes.ENUM(['tenant', 'property owner']),
       allowNull: true,
       unique: false,

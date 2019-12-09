@@ -6,11 +6,11 @@ module.exports = {
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
-    firstname: {
+    fname: {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    lastname: {
+    lname: {
       type: Sequelize.STRING,
       allowNull: false,
     },
@@ -23,12 +23,12 @@ module.exports = {
       allowNull: false,
       unique: true,
     },
-    phone_number: {
+    mobile: {
       type: Sequelize.STRING,
       allowNull: false,
       unique: true,
     },
-    account_type: {
+    type: {
       type: Sequelize.ENUM(['tenant', 'property owner']),
       allowNull: true,
       unique: false,
