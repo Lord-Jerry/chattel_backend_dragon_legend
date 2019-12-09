@@ -6,9 +6,9 @@ const create = async (req, _res, next) => {
   const rules = {
     address: 'required',
     property_type: 'required',
-    num_apartment: 'required|email',
-    num_bathroom: 'required',
-    rentage_amount: 'required',
+    num_apartment: 'required|integer',
+    num_bathroom: 'required|integer',
+    rentage_amount: 'required|integer',
   };
   const validate = new Validator(req.body, rules);
 

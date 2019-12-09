@@ -14,7 +14,7 @@ class Property {
    */
   static async create(req, res, next) {
     try {
-      const userId = decode(req).id;
+      const userId = decode(req)[0].id;
       const {
         address, property_type, num_apartment, num_bathroom, rentage_amount,
       } = req.body;
@@ -29,6 +29,7 @@ class Property {
       }
 
       const registeredProperty = await properties.create({
+        user_id: userId,
         address,
         property_type,
         num_apartment,
