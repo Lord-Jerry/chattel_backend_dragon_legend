@@ -1,11 +1,11 @@
 const router = require('express').Router();
-// const { registerUser } = require('../middleware/auth');
-// const authenticate = require('../middleware/authentication');
+const { register } = require('../middleware/validation/auth');
 const AuthController = require('../controllers/auth');
 
 router
   .route('/register')
   .post(
+    register,
     AuthController.create,
   );
 
