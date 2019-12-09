@@ -74,8 +74,7 @@ const login = async (req, _res, next) => {
   }
 
   return next();
-}
-
+};
 
 module.exports = {
   register,

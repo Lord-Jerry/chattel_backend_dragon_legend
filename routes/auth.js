@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { register } = require('../middleware/validation/auth');
+const { register, login } = require('../middleware/validation/auth');
 const AuthController = require('../controllers/auth');
 
 router
@@ -7,6 +7,13 @@ router
   .post(
     register,
     AuthController.create,
+  );
+
+router
+  .route('/login')
+  .post(
+    login,
+    AuthController.login,
   );
 
 module.exports = router;
