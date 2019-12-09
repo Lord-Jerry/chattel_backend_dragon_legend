@@ -1,4 +1,5 @@
-const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const { encode } = require('../helpers/token');
 const { users } = require('../models');
 /**
  * This class contains methods for authenticating users
@@ -31,10 +32,10 @@ class User {
         type,
       });
 
-      const token = jwt.sign({
-        id: details.id,
-        mobile: details.mobile,
-      }, process.env.SECRET_KEY, { expiresIn: '24h' });
+      // unset user password
+      details.password = undefined;
+
+      const token = encode(...details);
 
       return res.status(201).json({
         statusCode: 201,
