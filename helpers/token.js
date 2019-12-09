@@ -12,6 +12,15 @@ class Token {
       ...details,
     }, process.env.SECRET_KEY, { expiresIn: '24h' });
   }
+
+  /**
+   * decode user token
+   */
+  static decode(req) {
+    const { token } = req.headers;
+
+    return jwt.verify(token, process.env.SECRET_KEY);
+  }
 }
 
 module.exports = Token;
