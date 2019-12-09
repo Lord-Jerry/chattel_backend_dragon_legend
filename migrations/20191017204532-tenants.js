@@ -49,6 +49,16 @@ module.exports = {
       type: Sequelize.INTEGER,
       allowNull: false,
     },
+    createdAt: {
+      allowNull: false,
+      type: Sequelize.DATE,
+      defaultValue: Sequelize.NOW(),
+    },
+    updatedAt: {
+      allowNull: false,
+      type: Sequelize.DATE,
+      defaultValue: Sequelize.NOW(),
+    },
   }),
   // eslint-disable-next-line no-unused-vars
   down: (queryInterface, _Sequelize) => queryInterface.dropTable('tenants'),
