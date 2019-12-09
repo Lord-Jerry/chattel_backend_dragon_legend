@@ -1,17 +1,17 @@
-const response = require('../helper/response');
-
 // eslint-disable-next-line no-unused-vars
 const logger = (err, req, res, next) => {
   if (!err.statusCode) {
     /* eslint-disable-next-line no-console */
     console.error(err.stack);
-    return response(res, 500, {
+    return res.status(500).json({
       message: 'internal server error',
-    }, false);
+      statusCode: 500,
+    });
   }
 
-  return response(res, err.statusCode, {
-    message: err.message,
-  }, false);
+  return res.status(err.statusCode).json({
+    message: 'internal server error',
+    statusCode: err.statusCode,
+  });
 };
 module.exports = logger;
