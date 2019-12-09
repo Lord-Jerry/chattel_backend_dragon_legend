@@ -11,4 +11,11 @@ router
     PropertyController.create,
   );
 
+router
+  .route('/properties')
+  .get(
+    checkTokenValid,
+    PropertyController.getAll,
+  );
+
 module.exports = router;
