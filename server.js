@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const errorHandler = require('./middleware/errorhandler');
-// const routes = require('./routes/index');
+const routes = require('./routes/index');
 
 // set web server port according to environment
 const port = process.env.PORT || 8080;
@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors('*'));
 
 // set api routes
-// app.use(routes);
+app.use(routes);
 
 // set error handler
 app.use(errorHandler);
