@@ -42,6 +42,7 @@ class User {
         message: 'Account created successfully',
         data: {
           token,
+          details,
         },
       });
     } catch (err) {
@@ -95,6 +96,7 @@ class User {
         message: 'logged in',
         data: {
           token,
+          details: findUser,
         },
       });
     } catch (err) {
