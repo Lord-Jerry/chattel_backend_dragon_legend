@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const property = sequelize.define('property', {
+  const properties = sequelize.define('properties', {
     id: {
       allowNull: false,
       primaryKey: true,
@@ -42,9 +42,9 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
   // eslint-disable-next-line no-unused-vars
-  property.associate = function models(model) {
+  properties.associate = function models(model) {
     // associations can be defined here
-    property.hasMany(model.tenants, { onDelete: 'cascade', hooks: true });
+    properties.hasMany(model.tenants, { onDelete: 'cascade', hooks: true });
   };
-  return property;
+  return properties;
 };

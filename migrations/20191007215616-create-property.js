@@ -1,6 +1,6 @@
 
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('property', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('properties', {
     id: {
       allowNull: false,
       primaryKey: true,
@@ -47,5 +47,5 @@ module.exports = {
     },
   }),
   // eslint-disable-next-line no-unused-vars
-  down: (queryInterface, Sequelize) => queryInterface.dropTable('property'),
+  down: (queryInterface, Sequelize) => queryInterface.dropTable('properties'),
 };

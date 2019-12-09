@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 const { decode } = require('../helpers/token');
-const { users, property } = require('../models');
+const { users, properties } = require('../models');
 
 /**
  * this class contains method for managing user's properties
@@ -28,7 +28,7 @@ class Property {
         return next(err);
       }
 
-      const registeredProperty = await property.create({
+      const registeredProperty = await properties.create({
         address,
         property_type,
         num_apartment,
