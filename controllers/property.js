@@ -48,6 +48,43 @@ class Property {
       return next(err);
     }
   }
+
+  /**
+   * TODO: implement pagination
+   * @param { object } req - request body
+   * @param { object } res - api response
+   * @param { function } next - next middleware function
+   */
+  static async getAll(req, res, next) {
+    try {
+      const userId = decode(req)[0].id;
+
+      const findUser = await users.findByPk(userId);
+
+      if (!findUser) {
+        const err = new Error();
+        err.message = `user with ID ${userId} not found`;
+        err.statusCode = 404;
+        return next(err);
+      }
+
+      const userProperties = await properties.findAll({
+        where: {
+          user_id: userId,
+        },
+      });
+
+      return res.status(200).json({
+        message: 'registered properties',
+        statusCode: 200,
+        data: {
+          properties: userProperties,
+        },
+      });
+    } catch (err) {
+      return next(err);
+    }
+  }
 }
 
 module.exports = Property;
