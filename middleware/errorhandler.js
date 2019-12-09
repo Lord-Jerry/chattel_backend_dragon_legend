@@ -10,7 +10,7 @@ const logger = (err, req, res, next) => {
   }
 
   return res.status(err.statusCode).json({
-    message: 'internal server error',
+    message: err.message,
     statusCode: err.statusCode,
   });
 };

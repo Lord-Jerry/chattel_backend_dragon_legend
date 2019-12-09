@@ -33,9 +33,9 @@ class User {
       });
 
       // unset user password
-      details.password = undefined;
+      delete details.password;
 
-      const token = encode(...details);
+      const token = encode(details);
 
       return res.status(201).json({
         statusCode: 201,
@@ -48,6 +48,60 @@ class User {
       return next(err);
     }
   }
+
+  /**
+   * log users in
+   * @param { object } req - request body
+   * @param { object } res - api response
+   * @param { function } next - next middleware function
+   */
+  static async login(req, res, next) {
+    try {
+      const {
+        email,
+        password,
+      } = req.body;
+
+      const findUser = await users.findOne({
+        where: {
+          email,
+        },
+      });
+
+      if (!findUser) {
+        const err = new Error();
+        err.message = 'invalid email or password';
+        err.statusCode = 401;
+        return next(err);
+      }
+
+      const checkPassword = await bcrypt.compare(password, findUser.password);
+
+      if (!checkPassword) {
+        const err = new Error();
+        err.message = 'invalid email or password';
+        err.statusCode = 401;
+        return next(err);
+      }
+
+      // unset user password
+      delete findAdmin.password;
+
+      // sign user token
+      const token = encode(findUser);
+
+      return res.status(200).json({
+        statusCode: 200,
+        message: 'logged in',
+        data: {
+          token,
+        }
+      });
+    } catch (err) {
+      return next(err);
+    }
+  }
+
 }
 
 module.exports = User;
