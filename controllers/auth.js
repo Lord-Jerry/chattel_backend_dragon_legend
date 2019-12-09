@@ -85,7 +85,7 @@ class User {
       }
 
       // unset user password
-      delete findAdmin.password;
+      delete findUser.password;
 
       // sign user token
       const token = encode(findUser);
@@ -95,13 +95,12 @@ class User {
         message: 'logged in',
         data: {
           token,
-        }
+        },
       });
     } catch (err) {
       return next(err);
     }
   }
-
 }
 
 module.exports = User;
