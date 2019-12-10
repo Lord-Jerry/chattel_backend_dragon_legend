@@ -6,12 +6,12 @@ module.exports = {
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
-    property_id: {
+    propertyId: {
       type: Sequelize.INTEGER,
       allowNull: false,
       unique: false,
       references: {
-        model: 'property',
+        model: 'properties',
         key: 'id',
       },
     },
@@ -25,7 +25,7 @@ module.exports = {
       allowNull: false,
       unique: false,
     },
-    phone_number: {
+    mobile: {
       type: Sequelize.STRING,
       allowNull: false,
       unique: false,

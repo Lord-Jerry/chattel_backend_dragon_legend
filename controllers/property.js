@@ -29,7 +29,7 @@ class Property {
       }
 
       const registeredProperty = await properties.create({
-        user_id: userId,
+        userId,
         address,
         property_type,
         num_apartment,
@@ -70,7 +70,7 @@ class Property {
 
       const userProperties = await properties.findAll({
         where: {
-          user_id: userId,
+          userId,
         },
       });
 
@@ -108,7 +108,7 @@ class Property {
       const userProperty = await properties.findOne({
         where: {
           id: propertyId,
-          user_id: userId,
+          userId,
         },
       });
 
@@ -147,7 +147,7 @@ class Property {
       const userProperty = await properties.findOne({
         where: {
           id: propertyId,
-          user_id: userId,
+          userId,
         },
       });
 
@@ -172,6 +172,44 @@ class Property {
         data: {
           property: updatedProperty,
         },
+      });
+    } catch (err) {
+      return next(err);
+    }
+  }
+
+  static async delete(req, res, next) {
+    try {
+      const { propertyId } = req.params;
+      const userId = decode(req)[0].id;
+      const findUser = await users.findByPk(userId);
+
+      if (!findUser) {
+        const err = new Error();
+        err.message = `user with ID ${userId} not found`;
+        err.statusCode = 404;
+        return next(err);
+      }
+
+      const findProperty = await properties.findOne({
+        where: {
+          id: propertyId,
+          userId,
+        },
+      });
+
+      if (!findProperty) {
+        const err = new Error();
+        err.message = `property with ID ${propertyId} not found`;
+        err.statusCode = 404;
+        return next(err);
+      }
+
+      await findProperty.destroy();
+
+      return res.status(204).json({
+        message: 'property deleted succesfully',
+        statusCode: 204,
       });
     } catch (err) {
       return next(err);

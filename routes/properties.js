@@ -33,4 +33,11 @@ router
     PropertyController.update,
   );
 
+router
+  .route('/delete-property/:propertyId')
+  .delete(
+    checkTokenValid,
+    PropertyController.delete,
+  );
+
 module.exports = router;

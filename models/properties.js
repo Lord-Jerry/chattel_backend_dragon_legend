@@ -6,9 +6,13 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       autoIncrement: true,
     },
-    user_id: {
+    userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: 'users',
+        key: 'id',
+      },
     },
     property_type: {
       type: DataTypes.STRING,
@@ -44,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
   // eslint-disable-next-line no-unused-vars
   properties.associate = function models(model) {
     // associations can be defined here
-    properties.hasMany(model.tenants, { onDelete: 'cascade', hooks: true });
+    properties.hasMany(model.tenants, { foriegnKey: 'propertyId', onDelete: 'cascade', hooks: true });
   };
   return properties;
 };

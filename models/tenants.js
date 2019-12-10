@@ -6,12 +6,12 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    property_id: {
+    propertyId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       unique: false,
       references: {
-        model: 'property',
+        model: 'properties',
         key: 'id',
       },
     },
@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: false,
     },
-    phone_number: {
+    mobile: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: false,
@@ -62,7 +62,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   // eslint-disable-next-line no-unused-vars
   tenants.associate = function models(model) {
-    // tenants.belongsTo(model.property, { foreignKey: 'property_id' });
+    tenants.belongsTo(model.properties, { foreignKey: 'propertyId' });
   };
   return tenants;
 };
